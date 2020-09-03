@@ -1,0 +1,30 @@
+nav.navbar.navbar-default {
+  margin-bottom: 5px;
+
+}
+
+.navbar{
+
+  border-bottom-style: solid;
+  border-bottom-color: rgb(185, 185, 185);
+  border-bottom-width: 1px;
+  margin-bottom: 5px;
+
+}
+
+.secondaryTab{
+
+  margin-top: 3px;
+  font-size: 16px;
+
+}
+
+.loginTab{
+
+  color:white;
+  margin-top: 3px;
+  position: relative;
+
+
+}
+
