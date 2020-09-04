@@ -20,8 +20,8 @@ function Navbar() {
         </Link>
       </span>
       <span className="navbar-brand secondaryTab">
-        <Link to="/" className={location.pathname === "/" ? "nav-link active" : "nav-link"}>
-          Search Game
+        <Link to="/search" className={location.pathname === "/" ? "nav-link active" : "nav-link"}>
+          Search for a Game
         </Link>
       </span>
       
