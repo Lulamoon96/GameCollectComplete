@@ -7,6 +7,7 @@ function Search() {
 
     const [game, setGame] = useState("")
     const [gamelist, setGamelist] = useState([])
+    const [gameimage, setGameimage] = useState([])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -29,13 +30,32 @@ function Search() {
     }
 
     useEffect(() => {
+        // console.log("game img updated")
+        const games = [...gamelist]
+        const images = games.map(game => game.cover)
+        
+        // games.forEach((game) =>{
 
-        gamelist.forEach(game =>{
+        //     API.findGameCover(game.cover)
+        //         .then(res => game.image = res)
 
-            API.findGameCover(game.cover)
-                .then(res => game.cover = res)
+        // })
 
+        const CoverArtPromiseArr = images.map(image => {return API.findGameCover(image)})
+        Promise.all(CoverArtPromiseArr).then(res => {
+            res.forEach((url, index) => {
+            games[index].cover = url})
+            setGameimage(games)
         })
+        
+
+
+        //promise.all
+        //async await?
+        
+        // console.log(games)
+
+
 
     }, [gamelist])
 
@@ -43,26 +63,34 @@ function Search() {
     return (
 
         <div>
+
             <form onSubmit={handleSubmit}>
                 <label className="searchLabel">
                     Search for a Game:
                 <input className="searchInput" type="text" value={game} onChange={e => setGame(e.target.value)} />
                 </label>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Search" />
             </form>
-            {gamelist.length ? (
+            {gameimage.length ? (
             
             <List>
-                {gamelist.map(game => (
-
+                {/* {console.log("Game Image: ", gameimage)}
+                {console.log("Game Object: ", gameimage[0])}
+                {console.log("Game URL: ", gameimage[0].cover)}
+                {console.log("Game Name: ", gameimage[0].name)} */}
+                {gameimage.map(game => {
+                    // console.log("Game: ", game, "Game Image: ", game.cover)
+                    return (
+                    
                     <ListItem key={game.id}>
-                        <img src={game.cover}/>
+                        <img alt={game.name} src={game.cover}/>
                         <strong>
                             {game.name}
                         </strong>
+                        <button>View Game</button>
                     </ListItem>
-
-                ))}
+            
+                )})}
 
             </List>): ""}
 
